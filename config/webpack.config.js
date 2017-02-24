@@ -5,7 +5,8 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: {
     vendor: path.join(__dirname, '../client/vendor.js'),
-    application: path.join(__dirname, '../client/index.js')
+    application: path.join(__dirname, '../client/index.js'),
+    bucket: path.join(__dirname, '../client/bucket.js')
   },
   output: {
     filename: "[name].js",

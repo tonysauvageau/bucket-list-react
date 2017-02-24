@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 211);
+/******/ 	return __webpack_require__(__webpack_require__.s = 210);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -21820,7 +21820,8 @@ module.exports = traverseAllChildren;
 /* 181 */,
 /* 182 */,
 /* 183 */,
-/* 184 */
+/* 184 */,
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21829,8 +21830,6 @@ module.exports = traverseAllChildren;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(17);
 
@@ -21840,57 +21839,43 @@ var _Nav = __webpack_require__(82);
 
 var _Nav2 = _interopRequireDefault(_Nav);
 
-var _Buckets = __webpack_require__(188);
+var _Lists = __webpack_require__(190);
 
-var _Buckets2 = _interopRequireDefault(_Buckets);
+var _Lists2 = _interopRequireDefault(_Lists);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var BucketPage = function BucketPage() {
+  var _document$getElementB = document.getElementById('app').dataset,
+      id = _document$getElementB.id,
+      name = _document$getElementB.name;
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(_Nav2.default, null),
+    _react2.default.createElement(
+      'a',
+      { href: '/' },
+      'Back'
+    ),
+    _react2.default.createElement(
+      'h2',
+      { className: 'center' },
+      name
+    ),
+    _react2.default.createElement('hr', null),
+    _react2.default.createElement(_Lists2.default, { bucketId: id })
+  );
+};
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var App = function (_React$Component) {
-  _inherits(App, _React$Component);
-
-  function App() {
-    _classCallCheck(this, App);
-
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
-  }
-
-  _createClass(App, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      $(".button-collapse").sideNav();
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(_Nav2.default, null),
-        _react2.default.createElement(
-          'div',
-          { className: 'container' },
-          _react2.default.createElement(_Buckets2.default, null)
-        )
-      );
-    }
-  }]);
-
-  return App;
-}(_react2.default.Component);
-
-exports.default = App;
+exports.default = BucketPage;
 
 /***/ }),
-/* 185 */,
 /* 186 */,
-/* 187 */
+/* 187 */,
+/* 188 */,
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21908,110 +21893,143 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Bucket = function (_React$Component) {
-  _inherits(Bucket, _React$Component);
+var List = function (_React$Component) {
+  _inherits(List, _React$Component);
 
-  function Bucket(props) {
-    _classCallCheck(this, Bucket);
+  function List(props) {
+    _classCallCheck(this, List);
 
-    var _this = _possibleConstructorReturn(this, (Bucket.__proto__ || Object.getPrototypeOf(Bucket)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props));
 
-    _this.toggleEdit = function () {
-      _this.setState({ edit: !_this.state.edit });
+    _this.addCard = function (e) {
+      e.preventDefault();
+      $.ajax({
+        url: '/cards',
+        type: 'POST',
+        data: { name: _this.cardName.value, listId: _this.props._id }
+      }).done(function (card) {
+        _this.setState({ cards: [].concat(_toConsumableArray(_this.state.cards), [card]) });
+        _this.cardName.value = null;
+      });
     };
 
-    _this.showEdit = function () {
-      var _this$props = _this.props,
-          name = _this$props.name,
-          updateBucket = _this$props.updateBucket,
-          _id = _this$props._id;
-
-      if (_this.state.edit) {
-        return _react2.default.createElement(
-          "form",
-          {
-            onSubmit: function onSubmit(e) {
-              e.preventDefault();
-              updateBucket({ _id: _id, name: _this.input.value });
-              _this.input.value = null;
-              _this.toggleEdit();
-            }
-          },
-          _react2.default.createElement("input", { defaultValue: name, ref: function ref(n) {
-              return _this.input = n;
-            } })
-        );
-      } else {
-        return _react2.default.createElement(
-          "span",
-          { className: "card-title" },
-          name
-        );
-      }
+    _this.deleteCard = function (id) {
+      $.ajax({
+        url: '/cards/' + id,
+        type: 'DELETE'
+      }).done(function () {
+        _this.setState({ cards: _this.state.cards.filter(function (c) {
+            return c._id !== id;
+          }) });
+      });
     };
 
-    _this.state = { edit: false };
-    _this.input;
+    _this.state = { cards: [] };
     return _this;
   }
 
-  _createClass(Bucket, [{
-    key: "render",
+  _createClass(List, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      $.ajax({
+        url: '/cards',
+        type: 'GET',
+        data: { listId: this.props._id }
+      }).done(function (cards) {
+        _this2.setState({ cards: cards });
+      });
+    }
+  }, {
+    key: 'render',
     value: function render() {
+      var _this3 = this;
+
       var _props = this.props,
-          deleteBucket = _props.deleteBucket,
+          name = _props.name,
+          deleteList = _props.deleteList,
           _id = _props._id;
 
-      return _react2.default.createElement(
-        "div",
-        { className: "col s12 m4" },
-        _react2.default.createElement(
-          "div",
-          { className: "card blue-grey darken-1" },
+      var cards = this.state.cards.map(function (c) {
+        return _react2.default.createElement(
+          'li',
+          { key: c._id, className: 'collection-item' },
           _react2.default.createElement(
-            "div",
-            { className: "card-content white-text" },
-            this.showEdit()
-          ),
-          _react2.default.createElement(
-            "div",
-            { className: "card-action" },
+            'div',
+            null,
+            c.name,
             _react2.default.createElement(
-              "a",
-              { onClick: this.toggleEdit },
-              this.state.edit ? 'Cancel' : 'Edit'
-            ),
-            _react2.default.createElement(
-              "a",
-              { onClick: function onClick() {
-                  return deleteBucket(_id);
-                } },
-              "Delete"
-            ),
-            _react2.default.createElement(
-              "a",
-              { href: "/buckets/" + _id },
-              "Show"
+              'a',
+              {
+                className: 'secondary-content',
+                onClick: function onClick() {
+                  return _this3.deleteCard(c._id);
+                }
+              },
+              _react2.default.createElement(
+                'i',
+                { className: 'materiali-icons' },
+                'delete'
+              )
             )
           )
+        );
+      });
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'col s12 m3' },
+        _react2.default.createElement(
+          'h5',
+          { className: 'center' },
+          name,
+          _react2.default.createElement(
+            'span',
+            null,
+            _react2.default.createElement(
+              'i',
+              {
+                className: 'material-icons',
+                onClick: function onClick() {
+                  return deleteList(_id);
+                }
+              },
+              'delete'
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'form',
+          { onSubmit: this.addCard },
+          _react2.default.createElement('input', { ref: function ref(n) {
+              return _this3.cardName = n;
+            }, placeholder: 'Add Card' })
+        ),
+        _react2.default.createElement(
+          'ul',
+          { className: 'collection' },
+          cards
         )
       );
     }
   }]);
 
-  return Bucket;
+  return List;
 }(_react2.default.Component);
 
-exports.default = Bucket;
+exports.default = List;
 
 /***/ }),
-/* 188 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22029,13 +22047,13 @@ var _react = __webpack_require__(17);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Bucket = __webpack_require__(187);
-
-var _Bucket2 = _interopRequireDefault(_Bucket);
-
 var _Form = __webpack_require__(81);
 
 var _Form2 = _interopRequireDefault(_Form);
+
+var _List = __webpack_require__(189);
+
+var _List2 = _interopRequireDefault(_List);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22047,67 +22065,52 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Buckets = function (_React$Component) {
-  _inherits(Buckets, _React$Component);
+var Lists = function (_React$Component) {
+  _inherits(Lists, _React$Component);
 
-  function Buckets(props) {
-    _classCallCheck(this, Buckets);
+  function Lists(props) {
+    _classCallCheck(this, Lists);
 
-    var _this = _possibleConstructorReturn(this, (Buckets.__proto__ || Object.getPrototypeOf(Buckets)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Lists.__proto__ || Object.getPrototypeOf(Lists)).call(this, props));
 
-    _this.addBucket = function (name) {
+    _this.addList = function (name) {
+      var bucketId = _this.props.bucketId;
+
       $.ajax({
-        url: '/buckets',
+        url: '/lists',
         type: 'POST',
-        data: { name: name }
-      }).done(function (bucket) {
-        _this.setState({ buckets: [].concat(_toConsumableArray(_this.state.buckets), [bucket]) });
+        data: { bucketId: bucketId, name: name }
+      }).done(function (list) {
+        _this.setState({ lists: [].concat(_toConsumableArray(_this.state.lists), [list]) });
       });
     };
 
-    _this.updateBucket = function (bucket) {
-      var _id = bucket._id,
-          name = bucket.name;
-
+    _this.deleteList = function (id) {
       $.ajax({
-        url: '/buckets/' + _id,
-        type: 'PUT',
-        data: { name: name }
-      }).done(function (bucket) {
-        var buckets = _this.state.buckets.map(function (b) {
-          if (b._id === _id) return bucket;
-          return b;
-        });
-
-        _this.setState({ buckets: buckets });
-      });
-    };
-
-    _this.deleteBucket = function (id) {
-      $.ajax({
-        url: '/buckets/' + id,
+        url: '/lists/' + id,
         type: 'DELETE'
       }).done(function () {
-        _this.setState({ buckets: _this.state.buckets.filter(function (b) {
-            return b._id !== id;
+        _this.setState({ lists: _this.state.lists.filter(function (l) {
+            return l._id !== id;
           }) });
       });
     };
 
-    _this.state = { buckets: [] };
+    _this.state = { lists: [] };
     return _this;
   }
 
-  _createClass(Buckets, [{
+  _createClass(Lists, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       var _this2 = this;
 
       $.ajax({
-        url: '/buckets',
-        type: 'GET'
-      }).done(function (buckets) {
-        _this2.setState({ buckets: buckets });
+        url: '/lists',
+        type: 'GET',
+        data: { bucketId: this.props.bucketId }
+      }).done(function (lists) {
+        _this2.setState({ lists: lists });
       });
     }
   }, {
@@ -22115,35 +22118,32 @@ var Buckets = function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      var buckets = this.state.buckets.map(function (bucket) {
-        return _react2.default.createElement(_Bucket2.default, _extends({
-          key: bucket._id,
-          deleteBucket: _this3.deleteBucket,
-          updateBucket: _this3.updateBucket
-        }, bucket));
+      var lists = this.state.lists.map(function (list) {
+        return _react2.default.createElement(_List2.default, _extends({
+          key: list._id,
+          deleteList: _this3.deleteList
+        }, list));
       });
 
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_Form2.default, { add: this.addBucket, placeholer: 'Add Bucket' }),
+        _react2.default.createElement(_Form2.default, { add: this.addList, placeholder: 'Add List' }),
         _react2.default.createElement(
           'div',
           { className: 'row' },
-          buckets
+          lists
         )
       );
     }
   }]);
 
-  return Buckets;
+  return Lists;
 }(_react2.default.Component);
 
-exports.default = Buckets;
+exports.default = Lists;
 
 /***/ }),
-/* 189 */,
-/* 190 */,
 /* 191 */,
 /* 192 */,
 /* 193 */,
@@ -22163,8 +22163,7 @@ exports.default = Buckets;
 /* 207 */,
 /* 208 */,
 /* 209 */,
-/* 210 */,
-/* 211 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22178,14 +22177,14 @@ var _reactDom = __webpack_require__(80);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(184);
+var _BucketPage = __webpack_require__(185);
 
-var _App2 = _interopRequireDefault(_App);
+var _BucketPage2 = _interopRequireDefault(_BucketPage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('app'));
+_reactDom2.default.render(_react2.default.createElement(_BucketPage2.default, null), document.getElementById('app'));
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=application.js.map
+//# sourceMappingURL=bucket.js.map
